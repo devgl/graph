@@ -5,10 +5,12 @@ int main()
 {
 	Graph* graph = new Graph();
 	auto* depthPass = new Node("DepthPass");
-	depthPass->AddField("DepthTexture");
+	depthPass->AddOuput("DepthTexture")
+		.SetType("DepthStencil")
+		.SetFormat("R24D8");
 
 	auto* opaquePass = new Node("OpaquePass");
-	opaquePass->AddField("DepthStencilTexture");
+	opaquePass->AddInput("DepthStencilTexture");
 
 	graph->AddNode(depthPass);
 	graph->AddNode(opaquePass);

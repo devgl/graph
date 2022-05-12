@@ -10,7 +10,6 @@ class Graph
 public:
 	struct Edge
 	{
-		Node* from;
 		Node* to;
 		std::string fromField;
 		std::string toField;
@@ -36,11 +35,11 @@ public:
 		auto itor = _nodeEdges.find(from);
 		if (itor != _nodeEdges.end())
 		{
-			itor->second.emplace_back(Edge{ from, to, fromFieldName, toFieldName });
+			itor->second.emplace_back(Edge{ to, fromFieldName, toFieldName });
 		}
 		else
 		{
-			_nodeEdges.insert(std::make_pair(from, EdgeVector{ Edge{from, to, fromFieldName, toFieldName} }));
+			_nodeEdges.insert(std::make_pair(from, EdgeVector{ Edge{ to, fromFieldName, toFieldName } }));
 		}
 	}
 
