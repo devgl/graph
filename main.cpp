@@ -7,17 +7,16 @@ int main()
 	auto* depthPass = new Node("DepthPass");
 	depthPass->AddOuput("DepthTexture")
 		.SetType("DepthStencil")
-		.SetFormat("R24D8");
+		.SetFormat("D24S8");
 
 	auto* opaquePass = new Node("OpaquePass");
 	opaquePass->AddInput("DepthStencilTexture");
 
-	graph->AddNode(depthPass);
-	graph->AddNode(opaquePass);
+	auto* dummyPass = new Node("DummyPass");
 
-	graph->Link(depthPass, "DepthTexture", opaquePass, "DepthStencilTexture");
-
-	auto* edges = graph->GetNodeEdges(depthPass);
+	graph->Link(depthPass, opaquePass);
+	graph->Link(dummyPass);
+	graph->Compile();
 
 
 	return 0;

@@ -39,6 +39,8 @@ public:
 
 public:
 	std::vector<Field> _inputs;
+	
+	
 	std::vector<Field> _outputs;
 };
 

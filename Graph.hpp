@@ -2,6 +2,7 @@
 
 #include "Node.hpp"
 #include <set>
+#include <map>
 #include <unordered_map>
 #include <cassert>
 
@@ -10,53 +11,32 @@ class Graph
 public:
 	struct Edge
 	{
+		Node* from;
 		Node* to;
-		std::string fromField;
-		std::string toField;
+	};
+	struct NodeInfomation
+	{
+		int degree;
 	};
 
 	using EdgeVector = std::vector<Edge>;
-	using NodeEdges = std::unordered_map<Node*, EdgeVector>;
+	using EdgeMap = std::unordered_map<Node*, EdgeVector>;
+
+	// node and its degree
+	using NodeMap = std::map<Node*, NodeInfomation>;
 
 public:
-	void AddNode(Node* node)
-	{
-		if (_nodes.find(node) == _nodes.end())
-		{
-			_nodes.insert(node);
-		}
-	}
-
-	void Link(Node* from, std::string fromFieldName, Node* to, std::string toFieldName)
-	{
-		assert(_nodes.find(from) != _nodes.end());
-		assert(_nodes.find(to) != _nodes.end());
-
-		auto itor = _nodeEdges.find(from);
-		if (itor != _nodeEdges.end())
-		{
-			itor->second.emplace_back(Edge{ to, fromFieldName, toFieldName });
-		}
-		else
-		{
-			_nodeEdges.insert(std::make_pair(from, EdgeVector{ Edge{ to, fromFieldName, toFieldName } }));
-		}
-	}
-
-	const EdgeVector* GetNodeEdges(Node* node)
-	{
-		auto itor = _nodeEdges.find(node);
-		if (itor != _nodeEdges.end())
-		{
-			return &itor->second;
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
+	Graph();
+	void Link(Node* node);
+	void Link(Node* from, Node* to);
+	void Compile();
 
 private:
-	std::set<Node*> _nodes;
-	NodeEdges _nodeEdges;
+	void AddNode(Node* node);
+	void Reset();
+
+private:
+	Node _root;
+	NodeMap _nodes;
+	EdgeMap _nodeEdges;
 };
