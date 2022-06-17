@@ -17,7 +17,7 @@ int main()
 	graph->Link(depthPass, opaquePass);
 	graph->Link(dummyPass);
 	graph->Compile();
-
+	graph->Execute();
 
 	return 0;
 }

@@ -25,11 +25,14 @@ public:
 	// node and its degree
 	using NodeMap = std::map<Node*, NodeInfomation>;
 
+	using ExecutionVector = std::vector<std::vector<Node*>>;
+
 public:
 	Graph();
 	void Link(Node* node);
 	void Link(Node* from, Node* to);
 	void Compile();
+	void Execute();
 
 private:
 	void AddNode(Node* node);
@@ -39,4 +42,5 @@ private:
 	Node _root;
 	NodeMap _nodes;
 	EdgeMap _nodeEdges;
+	ExecutionVector _executions;
 };

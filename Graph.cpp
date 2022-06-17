@@ -74,13 +74,29 @@ void Graph::Compile()
 			}
 		}
 
-		// print frame nodes
-		for (auto const& node : frameNodes)
-		{
-			std::cout << node->GetName() << "->";
-		}
-		std::cout << '\n';
+		_executions.push_back(frameNodes);
 	}
 
 	Reset();
 }
+
+void Graph::Execute()
+{
+	for (auto const& section : _executions)
+	{
+		std::cout << "---passes running in parallel---begin---" << '\n';
+
+		// print frame nodes
+		for (auto const& node : section)
+		{
+			std::cout << node->GetName() << "->";
+		}
+
+		std::cout << '\n' << "---end---" << '\n';
+	}
+
+	_executions.clear();
+}
+
+
+
