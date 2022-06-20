@@ -67,10 +67,13 @@ void Graph::Compile()
 		}
 		for (auto const& node : frameNodes)
 		{
-			const auto& edges = _nodeEdges[node];
-			for (auto const& edge : edges)
+			auto itor = _nodeEdges.find(node);
+			if (itor != _nodeEdges.end())
 			{
-				_nodes[edge.to].degree--;
+				for (auto const& edge : itor->second)
+				{
+					_nodes[edge.to].degree--;
+				}
 			}
 		}
 
