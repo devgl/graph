@@ -80,6 +80,20 @@ void Graph::Compile()
 		_executions.push_back(frameNodes);
 	}
 
+	int step = 0;
+	for (auto const& exeList : _executions)
+	{
+		for (auto const& exe : exeList)
+		{
+			for (auto const& output : exe->GetOutputs())
+			{
+				_resources.UseResource(step, output);
+			}
+		}
+
+		step++;
+	}
+
 	Reset();
 }
 

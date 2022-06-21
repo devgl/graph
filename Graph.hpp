@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Node.hpp"
+#include "ResourceCache.hpp"
 #include <set>
 #include <map>
 #include <unordered_map>
@@ -43,4 +44,6 @@ private:
 	NodeMap _nodes;
 	EdgeMap _nodeEdges;
 	ExecutionVector _executions;
+
+	ResourceCache _resources;
 };

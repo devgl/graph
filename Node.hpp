@@ -37,18 +37,11 @@ public:
 	Field& AddInput(const std::string name);
 	Field& AddOuput(const std::string name);
 
+	const auto& GetInputs() const { return _inputs; }
+	const auto& GetOutputs() const { return _outputs; }
+
 public:
 	std::vector<Field> _inputs;
-	
-	
 	std::vector<Field> _outputs;
 };
 
-class DepthPass : public Node
-{
-public:
-	DepthPass(const std::string name) : Node(name) {}
-
-public:
-	
-};
