@@ -15,7 +15,7 @@ int Lua_Link(lua_State* vm)
 	return 0;
 }
 
-int Graph::Register(lua_State* vm)
+int Graph::LuaRegister(lua_State* vm)
 {
 	luaL_Reg apis[] =
 	{

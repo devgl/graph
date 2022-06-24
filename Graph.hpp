@@ -37,7 +37,7 @@ public:
 	void Execute();
 
 public:
-	static int Register(lua_State* vm);
+	static int LuaRegister(lua_State* vm);
 
 private:
 	void AddNode(Node* node);

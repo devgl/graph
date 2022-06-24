@@ -41,6 +41,9 @@ public:
 	const auto& GetOutputs() const { return _outputs; }
 
 public:
+	static int LuaRegister(lua_State* l);
+
+public:
 	std::vector<Field> _inputs;
 	std::vector<Field> _outputs;
 };
