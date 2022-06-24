@@ -1,5 +1,6 @@
 #include "Graph.hpp"
 #include "Node.hpp"
+#include <lua.hpp>
 
 int main()
 {
@@ -18,6 +19,10 @@ int main()
 	graph->Link(dummyPass);
 	graph->Compile();
 	graph->Execute();
+
+	auto luaVM = luaL_newstate();
+
+	lua_close(luaVM);
 
 	return 0;
 }

@@ -2,12 +2,13 @@
 
 #include "Node.hpp"
 #include "ResourceCache.hpp"
+#include "ILuaLibrary.hpp"
 #include <set>
 #include <map>
 #include <unordered_map>
 #include <cassert>
 
-class Graph
+class Graph : public ILuaLibrary
 {
 public:
 	struct Edge
@@ -34,6 +35,9 @@ public:
 	void Link(Node* from, Node* to);
 	void Compile();
 	void Execute();
+
+public:
+	void Register(lua_State* vm) override;
 
 private:
 	void AddNode(Node* node);
