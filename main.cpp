@@ -1,6 +1,7 @@
 #include "Graph.hpp"
 #include "Node.hpp"
 #include <lua.hpp>
+#include <iostream>
 
 int main()
 {
@@ -21,7 +22,13 @@ int main()
 	graph->Execute();
 
 	auto luaVM = luaL_newstate();
-
+	luaL_openlibs(luaVM);
+	lua_register(luaVM, "open_GraphLib", &Graph::Register);
+	auto ret = luaL_dofile(luaVM, SCRIPT("main.lua"));
+	if (ret != 0) 
+	{
+		std::cout << "Error: " << lua_tostring(luaVM, -1);
+	}
 	lua_close(luaVM);
 
 	return 0;

@@ -1,32 +1,6 @@
 #include "Graph.hpp"
 #include <iostream>
 
-int Lua_AddNode(lua_State* vm)
-{
-	auto graph = (Graph*)lua_touserdata(vm, 0);
-	auto newNode = (Node*)lua_touserdata(vm, 1);
-
-	
-
-	return 0;
-}
-
-int Lua_Link(lua_State* vm)
-{
-	return 0;
-}
-
-void Graph::Register(lua_State* vm)
-{
-	luaL_Reg apis[] = {
-		{"AddNode", Lua_AddNode},
-		{"Link", Lua_Link},
-	};
-
-	luaL_newlib(vm, apis);
-}
-
-
 Graph::Graph()
 	: _root("GraphRoot")
 {
