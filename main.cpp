@@ -25,6 +25,7 @@ int main()
 	luaL_openlibs(luaVM);
 	lua_register(luaVM, "open_GraphLib", &Graph::LuaRegister);
 	lua_register(luaVM, "open_NodeLib", &Node::LuaRegister);
+	lua_register(luaVM, "open_FieldLib", &Field::LuaRegister);
 
 	auto ret = luaL_dofile(luaVM, SCRIPT("main.lua"));
 	if (ret != 0) 

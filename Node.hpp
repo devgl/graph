@@ -23,6 +23,9 @@ public:
 	Field& SetType(const std::string type);
 	Field& SetFormat(const std::string format);
 
+public:
+	static int LuaRegister(lua_State* l);
+
 private:
 	std::string _format;
 	std::string _type;
