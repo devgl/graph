@@ -34,3 +34,4 @@ print("table n1 : ", n1)
 print(n1:GetName())
 
 
+print("Require: ", require("NodeModule"))
