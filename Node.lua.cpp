@@ -5,6 +5,7 @@ int Lua_Field_SetType(lua_State* l)
 	size_t len = 0;
 	const char* name = lua_tolstring(l, 1, &len);
 	std::string strName(name, len);
+<<<<<<< HEAD
 
 	auto* f = (Field*)lua_touserdata(l, 1);
 	f->SetType(strName);
@@ -57,6 +58,22 @@ int Lua_Node_Destroy(lua_State* l)
 	delete n;
 	return 0;
 }
+=======
+	Node* pNode = new Node(strName);
+	lua_pushlightuserdata(l, pNode);
+	return 1;
+}
+
+int Lua_AddInput(lua_State* l)
+{ 
+	Node* pNode = (Node*)lua_touserdata(l, 1);
+
+	size_t len = 0;
+	const char* name = lua_tolstring(l, 2, &len);
+	std::string strName(name, len);
+
+	pNode->AddInput(strName);
+>>>>>>> a317181bbc5832d7a667302feab95b0ce6a02329
 
 int Lua_Node_GetName(lua_State* l)
 {
@@ -90,12 +107,18 @@ int Node::LuaRegister(lua_State* l)
 {
 	luaL_Reg apis[] =
 	{
+<<<<<<< HEAD
 		luaL_Reg{"Create", &Lua_Node_Create},
 		luaL_Reg{"Destroy", &Lua_Node_Destroy},
 		luaL_Reg{"GetName", &Lua_Node_GetName},
 		luaL_Reg{"AddInput", &Lua_Node_AddInput},
 		luaL_Reg{"AddOutput", &Lua_Node_AddOutput},
 		luaL_Reg{nullptr, nullptr}
+=======
+		luaL_Reg{"Create", Lua_CreateNode},
+		luaL_Reg{"AddInput", Lua_AddInput},
+		luaL_Reg{nullptr, nullptr},
+>>>>>>> a317181bbc5832d7a667302feab95b0ce6a02329
 	};
 	luaL_newlib(l, apis);
 	return 1;
