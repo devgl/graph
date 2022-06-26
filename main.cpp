@@ -23,6 +23,13 @@ int main()
 
 	auto luaVM = luaL_newstate();
 	luaL_openlibs(luaVM);
+
+	lua_getglobal(luaVM, "package");
+	lua_pushstring(luaVM, SCRIPT("?.lua"));
+	lua_setfield(luaVM, -2, "path");
+	lua_pop(luaVM, 1);
+
+	
 	lua_register(luaVM, "open_GraphLib", &Graph::LuaRegister);
 	lua_register(luaVM, "open_NodeLib", &Node::LuaRegister);
 	lua_register(luaVM, "open_FieldLib", &Field::LuaRegister);
