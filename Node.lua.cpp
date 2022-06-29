@@ -1,9 +1,11 @@
 #include "Node.hpp"
 
+// Field -----------------------------------------
+
 int Lua_Field_SetType(lua_State* l)
 {
 	size_t len = 0;
-	const char* name = lua_tolstring(l, 1, &len);
+	const char* name = lua_tolstring(l, 2, &len);
 	std::string strName(name, len);
 	auto* f = (Field*)lua_touserdata(l, 1);
 	f->SetType(strName);
@@ -13,7 +15,7 @@ int Lua_Field_SetType(lua_State* l)
 int Lua_Field_SetFormat(lua_State* l)
 {
 	size_t len = 0;
-	const char* name = lua_tolstring(l, 1, &len);
+	const char* name = lua_tolstring(l, 2, &len);
 	std::string strName(name, len);
 
 	auto* f = (Field*)lua_touserdata(l, 1);
@@ -23,8 +25,8 @@ int Lua_Field_SetFormat(lua_State* l)
 
 int Lua_Field_GetName(lua_State* l)
 {
-	auto* n = (Node*)lua_touserdata(l, 1);
-	const auto& name = n->GetName();
+	auto* f = (Field*)lua_touserdata(l, 1);
+	const auto& name = f->GetName();
 	lua_pushlstring(l, name.c_str(), name.length());
 	return 1;
 }
@@ -42,6 +44,8 @@ int Field::LuaRegister(lua_State* l)
 	return 1;
 }
 
+// Node --------------------------------------------
+
 int Lua_Node_Create(lua_State* l)
 {
 	size_t len = 0;
@@ -58,17 +62,6 @@ int Lua_Node_Destroy(lua_State* l)
 	return 0;
 }
 
-int Lua_AddInput(lua_State* l)
-{
-	Node* pNode = (Node*)lua_touserdata(l, 1);
-	size_t len = 0;
-	const char* name = lua_tolstring(l, 2, &len);
-	std::string strName(name, len);
-	Field& f = pNode->AddInput(strName);
-	lua_pushlightuserdata(l, &f);
-	return 1;
-}
-
 int Lua_Node_GetName(lua_State* l)
 {
 	auto* n = (Node*)lua_touserdata(l, 1);
@@ -80,7 +73,7 @@ int Lua_Node_GetName(lua_State* l)
 int Lua_Node_AddInput(lua_State* l)
 { 
 	size_t len = 0;
-	const char* name = lua_tolstring(l, 1, &len);
+	const char* name = lua_tolstring(l, 2, &len);
 	auto* n = (Node*)lua_touserdata(l, 1);
 	Field& f = n->AddInput(std::string(name, len));
 	lua_pushlightuserdata(l, &f);
@@ -90,7 +83,7 @@ int Lua_Node_AddInput(lua_State* l)
 int Lua_Node_AddOutput(lua_State* l)
 {
 	size_t len = 0;
-	const char* name = lua_tolstring(l, 1, &len);
+	const char* name = lua_tolstring(l, 2, &len);
 	auto* n = (Node*)lua_touserdata(l, 1);
 	Field& f = n->AddOuput(std::string(name, len));
 	lua_pushlightuserdata(l, &f);

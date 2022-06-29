@@ -1,5 +1,4 @@
 #include "Graph.hpp"
-#include <iostream>
 
 Graph::Graph()
 	: _root("GraphRoot")
@@ -99,15 +98,10 @@ void Graph::Execute()
 {
 	for (auto const& section : _executions)
 	{
-		std::cout << "---passes running in parallel---begin---" << '\n';
-
 		// print frame nodes
 		for (auto const& node : section)
 		{
-			std::cout << node->GetName() << "->";
 		}
-
-		std::cout << '\n' << "---end---" << '\n';
 	}
 
 	_executions.clear();

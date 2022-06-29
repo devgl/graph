@@ -1,17 +1,19 @@
-local api = open_NodeLib()
+local Field = require("NodeFieldModule")
 
-local Node = {}
-function Node:GetName()
+local api = open_NodeLib()
+local node = {}
+local mt = {
+    __index = node
+}
+
+function node:getName()
 	return api.GetName(self._node)
 end
 
-local mt = {
-	__index = Node
-}
+function node:addInput(name)
+	return Field(api.AddInput(self._node, name))
+end
 
 return function(name)
-	local p = api.Create(name)
-	local n = { _node = p}
-	setmetatable(n, mt)
-	return n
+	return setmetatable({ _node = api.Create(name) }, mt)
 end
