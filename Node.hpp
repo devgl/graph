@@ -21,7 +21,10 @@ public:
 
 public:
 	Field& SetType(const std::string type);
+	const auto& GetType() const { return _type; }
+
 	Field& SetFormat(const std::string format);
+	const auto& GetFormat() const { return _format; }
 
 public:
 	static int LuaRegister(lua_State* l);

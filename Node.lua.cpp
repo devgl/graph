@@ -4,28 +4,50 @@
 
 int Lua_Field_SetType(lua_State* l)
 {
+	auto* f = (Field*)lua_touserdata(l, 1);
+
 	size_t len = 0;
 	const char* name = lua_tolstring(l, 2, &len);
 	std::string strName(name, len);
-	auto* f = (Field*)lua_touserdata(l, 1);
+	
 	f->SetType(strName);
 	return 0;
 }
 
+int Lua_Field_GetType(lua_State* l)
+{
+	auto* f = (Field*)lua_touserdata(l, 1);
+
+	const auto& name = f->GetType();
+	lua_pushlstring(l, name.c_str(), name.length());
+	return 1;
+}
+
 int Lua_Field_SetFormat(lua_State* l)
 {
+	auto* f = (Field*)lua_touserdata(l, 1);
+
 	size_t len = 0;
 	const char* name = lua_tolstring(l, 2, &len);
 	std::string strName(name, len);
-
-	auto* f = (Field*)lua_touserdata(l, 1);
+	
 	f->SetFormat(strName);
 	return 0;
+}
+
+int Lua_Field_GetFormat(lua_State* l)
+{
+	auto* f = (Field*)lua_touserdata(l, 1);
+
+	const auto& name = f->GetFormat();
+	lua_pushlstring(l, name.c_str(), name.length());
+	return 1;
 }
 
 int Lua_Field_GetName(lua_State* l)
 {
 	auto* f = (Field*)lua_touserdata(l, 1);
+
 	const auto& name = f->GetName();
 	lua_pushlstring(l, name.c_str(), name.length());
 	return 1;
@@ -36,7 +58,9 @@ int Field::LuaRegister(lua_State* l)
 	luaL_Reg apis[] =
 	{
 		luaL_Reg{"SetType", &Lua_Field_SetType},
+		luaL_Reg{"GetType", &Lua_Field_GetType},
 		luaL_Reg{"SetFormat", &Lua_Field_SetFormat},
+		luaL_Reg{"GetFormat", &Lua_Field_GetFormat},
 		luaL_Reg{"GetName", &Lua_Field_GetName},
 		luaL_Reg{nullptr, nullptr}
 	};
