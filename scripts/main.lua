@@ -7,7 +7,8 @@ f1:setType("field 1 type")
 f1:setFormat("field 1 format")
 print(f1:getName(), f1:getType(), f1:getFormat())
 
-
-
 local n2 = Node("node02")
 print(n2:getName())
+
+n1:destroy()
+n2:destroy()
